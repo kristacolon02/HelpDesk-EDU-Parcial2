@@ -117,3 +117,51 @@ class TicketService:
         tickets = self.tickets.list(requester_id=user.id if user.role == "requester" else None)
         group = lambda attr: {str(key): sum(1 for ticket in tickets if getattr(ticket, attr) == key) for key in set(getattr(ticket, attr) for ticket in tickets)}
         return {"open": sum(ticket.status not in ("Closed", "Cancelled") for ticket in tickets), "overdue": sum(ticket.due_at < datetime.utcnow() and ticket.status not in ("Closed", "Cancelled") for ticket in tickets), "status": group("status"), "priority": group("priority"), "category": group("category"), "workload": {str(key): sum(1 for ticket in tickets if ticket.assignee_id == key) for key in set(ticket.assignee_id for ticket in tickets if ticket.assignee_id)}}
+
+    # --- Observadores del ticket (parcial 2, ejercicio 2) -----------------
+
+    def require(self, ticket_id: int) -> Ticket:
+        """Devuelve el ticket solicitado o propaga el error si no existe.
+
+        Version publica de ``_ticket``: expone la misma garantia (el ticket
+        existe o se lanza el error) para que otros metodos del servicio no
+        tengan que repetir la verificacion.
+        """
+        return self._ticket(ticket_id)
+
+    def _require_user(self, user_id: int) -> User:
+        """Devuelve el usuario indicado o falla de forma explicita.
+
+        Se consulta el colaborador de usuarios del propio servicio, nunca el
+        repositorio de otro servicio, para no romper la separacion de capas.
+        """
+        user = self.users.by_id(user_id)
+        if user is None:
+            raise HTTPException(404, "User not found")
+        return user
+
+    def watchers(self, ticket_id: int) -> "list[User]":
+        """Usuarios que deben enterarse de lo que ocurra con el ticket.
+
+        El tipo de retorno va entre comillas porque esta clase ya define un
+        metodo llamado ``list``, que dentro del cuerpo de la clase tapa al
+        ``list`` de Python. Como cadena, la anotacion se resuelve despues y
+        no choca con el metodo.
+
+        Devuelve siempre al solicitante y, cuando existe, al tecnico
+        asignado. Si ambos son la misma persona, aparece una sola vez: la
+        deduplicacion se hace por id, no por identidad de objeto, porque dos
+        consultas distintas pueden devolver instancias diferentes del mismo
+        usuario.
+        """
+        ticket = self.require(ticket_id)
+
+        observadores: list[User] = []
+        vistos: set[int] = set()
+        for user_id in (ticket.requester_id, ticket.assignee_id):
+            if user_id is None or user_id in vistos:
+                continue
+            observadores.append(self._require_user(user_id))
+            vistos.add(user_id)
+
+        return observadores
