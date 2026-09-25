@@ -91,7 +91,7 @@ class Comment(Base):
     __tablename__ = "comments"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"))
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id", ondelete="CASCADE"))
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     body: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
@@ -102,7 +102,7 @@ class History(Base):
     __tablename__ = "history"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"))
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id", ondelete="CASCADE"))
     actor_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     event_type: Mapped[str] = mapped_column(String(50))
     detail: Mapped[str] = mapped_column(String(255))
