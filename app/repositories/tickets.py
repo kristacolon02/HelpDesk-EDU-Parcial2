@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models import Comment, History, Ticket
@@ -39,3 +39,17 @@ class TicketRepository:
 
     def commit(self) -> None:
         self.db.commit()
+
+    def count_by_status(self) -> dict[str, int]:
+        """Conteo de tickets agrupado por estado.
+
+        La agregacion se resuelve en la base de datos con GROUP BY, no
+        trayendo todas las filas a memoria para contarlas en Python, el
+        costo no crece con el numero de tickets.
+
+        Solo aparecen los estados presentes, una base sin tickets devuelve
+        un diccionario vacio porque GROUP BY no produce filas cuando no
+        hay nada que agrupar.
+        """
+        consulta = select(Ticket.status, func.count()).group_by(Ticket.status)
+        return {estado: total for estado, total in self.db.execute(consulta).all()}
