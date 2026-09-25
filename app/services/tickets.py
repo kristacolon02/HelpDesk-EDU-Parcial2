@@ -3,18 +3,27 @@ from datetime import datetime, timedelta
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
+from app.domain.errors import DuplicateAssignmentError
 from app.models import Comment, History, Ticket, User
 from app.models.enums import STATUSES
 from app.repositories.tickets import TicketRepository
 from app.repositories.users import UserRepository
 from app.schemas.tickets import AssignIn, CommentIn, StatusIn, TicketIn
+from app.services.notifications import Notifier, NullNotifier
 
 
 class TicketService:
-    def __init__(self, db: Session):
+    def __init__(self, db: Session, notifier: Notifier | None = None):
+        """Recibe el canal de notificacion por inyeccion de dependencias.
+
+        Si no se indica ninguno se usa ``NullNotifier``, de modo que el
+        servicio siempre tiene un colaborador valido al que llamar y nunca
+        necesita preguntar por su tipo ni comprobar si existe.
+        """
         self.db = db
         self.tickets = TicketRepository(db)
         self.users = UserRepository(db)
+        self.notifier = notifier or NullNotifier()
 
     def serialize(self, ticket: Ticket) -> dict:
         comments = [{"id": item.id, "body": item.body, "author": item.author.name, "created_at": item.created_at} for item in self.tickets.comments_for(ticket.id)]
@@ -69,15 +78,32 @@ class TicketService:
         return self.serialize(ticket)
 
     def assign(self, ticket_id: int, body: AssignIn, user: User) -> dict:
+        """Asigna el ticket a un tecnico y avisa por el canal inyectado.
+
+        El orden de las comprobaciones importa: la asignacion duplicada se
+        rechaza ANTES de mutar el ticket, de registrar el historial y de
+        notificar, para que un intento invalido no deje rastro alguno.
+        """
         ticket = self._ticket(ticket_id)
         assignee = self.users.by_id(body.assignee_id)
         if not assignee:
             raise HTTPException(404, "Ticket or assignee not found")
         if assignee.role not in ("technician", "supervisor"):
             raise HTTPException(422, "Assignee must be a technician or supervisor")
+        if ticket.assignee_id == assignee.id:
+            raise DuplicateAssignmentError(
+                f"El ticket {ticket.id} ya esta asignado a {assignee.name}."
+            )
+
         ticket.assignee_id = assignee.id
         self.tickets.commit()
         self._event(ticket, user, "assigned", f"Assigned to {assignee.name}")
+        self.notifier.notify(
+            event="assigned",
+            ticket_id=ticket.id,
+            detail=f"Assigned to {assignee.name}",
+            recipients=[observador.id for observador in self.watchers(ticket.id)],
+        )
         return self.serialize(ticket)
 
     def change_status(self, ticket_id: int, body: StatusIn, user: User) -> dict:
