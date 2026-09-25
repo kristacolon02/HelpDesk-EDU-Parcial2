@@ -1,0 +1,51 @@
+..........................................                               [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+tests/test_helpdesk.py::test_technician_can_close_ticket_through_explicit_close_endpoint
+tests/test_helpdesk.py::test_ticket_history_endpoint_exposes_assignment_records_to_requester
+tests/test_helpdesk.py::test_role_restriction_and_ticket_lifecycle
+tests/test_helpdesk.py::test_frontend_ticket_form_creates_ticket_and_redirects_to_detail
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/app/services/tickets.py:50: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    ticket = Ticket(**body.model_dump(), requester_id=user.id, due_at=datetime.utcnow() + timedelta(hours=hours))
+
+tests/test_helpdesk.py: 14 warnings
+tests/test_parcial2_02_watchers.py: 4 warnings
+tests/test_parcial2_03_excepciones.py: 8 warnings
+tests/test_parcial2_05_agregacion.py: 11 warnings
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:3623: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+tests/test_helpdesk.py: 12 warnings
+tests/test_parcial2_03_excepciones.py: 2 warnings
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/app/services/tickets.py:31: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return {"id": ticket.id, "title": ticket.title, "description": ticket.description, "category": ticket.category, "priority": ticket.priority, "status": ticket.status, "requester_id": ticket.requester_id, "assignee_id": ticket.assignee_id, "requester": ticket.requester.name, "assignee": ticket.assignee.name if ticket.assignee else None, "created_at": ticket.created_at, "due_at": ticket.due_at, "overdue": ticket.due_at < datetime.utcnow() and ticket.status not in ("Closed", "Cancelled"), "comments": comments, "history": history}
+
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solo_al_solicitante_cuando_no_hay_tecnico
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solicitante_y_tecnico_cuando_son_distintos
+tests/test_parcial2_02_watchers.py::test_watchers_no_duplica_cuando_solicitante_y_tecnico_son_el_mismo
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_objetos_user_completos
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/tests/test_parcial2_02_watchers.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    due_at=datetime.utcnow() + timedelta(hours=48),
+
+tests/test_parcial2_03_excepciones.py::test_asignacion_valida_emite_notificacion_con_su_payload
+tests/test_parcial2_03_excepciones.py::test_reasignar_al_mismo_tecnico_lanza_duplicate_assignment_error
+tests/test_parcial2_03_excepciones.py::test_duplicate_assignment_error_es_un_error_de_dominio
+tests/test_parcial2_03_excepciones.py::test_la_asignacion_duplicada_no_agrega_historial_ni_notificaciones
+tests/test_parcial2_03_excepciones.py::test_las_validaciones_previas_se_mantienen
+tests/test_parcial2_03_excepciones.py::test_reasignar_a_otro_tecnico_si_es_valido
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/tests/test_parcial2_03_excepciones.py:40: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    due_at=datetime.utcnow() + timedelta(hours=48),
+
+tests/test_parcial2_05_agregacion.py: 11 warnings
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/tests/test_parcial2_05_agregacion.py:37: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    due_at=datetime.utcnow() + timedelta(hours=48),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+42 passed, 78 warnings in 3.52s

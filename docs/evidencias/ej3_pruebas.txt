@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collecting ... collected 10 items
+
+tests/test_parcial2_03_excepciones.py::test_notifier_es_abstracto_y_no_se_puede_instanciar PASSED [ 10%]
+tests/test_parcial2_03_excepciones.py::test_webhook_notifier_nace_sin_envios PASSED [ 20%]
+tests/test_parcial2_03_excepciones.py::test_webhook_notifier_guarda_los_argumentos_recibidos PASSED [ 30%]
+tests/test_parcial2_03_excepciones.py::test_el_servicio_usa_null_notifier_por_defecto PASSED [ 40%]
+tests/test_parcial2_03_excepciones.py::test_asignacion_valida_emite_notificacion_con_su_payload PASSED [ 50%]
+tests/test_parcial2_03_excepciones.py::test_reasignar_al_mismo_tecnico_lanza_duplicate_assignment_error PASSED [ 60%]
+tests/test_parcial2_03_excepciones.py::test_duplicate_assignment_error_es_un_error_de_dominio PASSED [ 70%]
+tests/test_parcial2_03_excepciones.py::test_la_asignacion_duplicada_no_agrega_historial_ni_notificaciones PASSED [ 80%]
+tests/test_parcial2_03_excepciones.py::test_las_validaciones_previas_se_mantienen PASSED [ 90%]
+tests/test_parcial2_03_excepciones.py::test_reasignar_a_otro_tecnico_si_es_valido PASSED [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+tests/test_parcial2_03_excepciones.py::test_asignacion_valida_emite_notificacion_con_su_payload
+tests/test_parcial2_03_excepciones.py::test_reasignar_al_mismo_tecnico_lanza_duplicate_assignment_error
+tests/test_parcial2_03_excepciones.py::test_duplicate_assignment_error_es_un_error_de_dominio
+tests/test_parcial2_03_excepciones.py::test_la_asignacion_duplicada_no_agrega_historial_ni_notificaciones
+tests/test_parcial2_03_excepciones.py::test_las_validaciones_previas_se_mantienen
+tests/test_parcial2_03_excepciones.py::test_reasignar_a_otro_tecnico_si_es_valido
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/tests/test_parcial2_03_excepciones.py:40: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    due_at=datetime.utcnow() + timedelta(hours=48),
+
+tests/test_parcial2_03_excepciones.py::test_asignacion_valida_emite_notificacion_con_su_payload
+tests/test_parcial2_03_excepciones.py::test_asignacion_valida_emite_notificacion_con_su_payload
+tests/test_parcial2_03_excepciones.py::test_reasignar_al_mismo_tecnico_lanza_duplicate_assignment_error
+tests/test_parcial2_03_excepciones.py::test_duplicate_assignment_error_es_un_error_de_dominio
+tests/test_parcial2_03_excepciones.py::test_la_asignacion_duplicada_no_agrega_historial_ni_notificaciones
+tests/test_parcial2_03_excepciones.py::test_las_validaciones_previas_se_mantienen
+tests/test_parcial2_03_excepciones.py::test_reasignar_a_otro_tecnico_si_es_valido
+tests/test_parcial2_03_excepciones.py::test_reasignar_a_otro_tecnico_si_es_valido
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:3623: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+tests/test_parcial2_03_excepciones.py::test_asignacion_valida_emite_notificacion_con_su_payload
+tests/test_parcial2_03_excepciones.py::test_reasignar_a_otro_tecnico_si_es_valido
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/app/services/tickets.py:31: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return {"id": ticket.id, "title": ticket.title, "description": ticket.description, "category": ticket.category, "priority": ticket.priority, "status": ticket.status, "requester_id": ticket.requester_id, "assignee_id": ticket.assignee_id, "requester": ticket.requester.name, "assignee": ticket.assignee.name if ticket.assignee else None, "created_at": ticket.created_at, "due_at": ticket.due_at, "overdue": ticket.due_at < datetime.utcnow() and ticket.status not in ("Closed", "Cancelled"), "comments": comments, "history": history}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 10 passed, 17 warnings in 1.22s ========================

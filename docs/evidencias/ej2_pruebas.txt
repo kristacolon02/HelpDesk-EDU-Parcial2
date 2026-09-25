@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collecting ... collected 5 items
+
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solo_al_solicitante_cuando_no_hay_tecnico PASSED [ 20%]
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solicitante_y_tecnico_cuando_son_distintos PASSED [ 40%]
+tests/test_parcial2_02_watchers.py::test_watchers_no_duplica_cuando_solicitante_y_tecnico_son_el_mismo PASSED [ 60%]
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_objetos_user_completos PASSED [ 80%]
+tests/test_parcial2_02_watchers.py::test_watchers_propaga_el_error_si_el_ticket_no_existe PASSED [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solo_al_solicitante_cuando_no_hay_tecnico
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solicitante_y_tecnico_cuando_son_distintos
+tests/test_parcial2_02_watchers.py::test_watchers_no_duplica_cuando_solicitante_y_tecnico_son_el_mismo
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_objetos_user_completos
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/tests/test_parcial2_02_watchers.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    due_at=datetime.utcnow() + timedelta(hours=48),
+
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solo_al_solicitante_cuando_no_hay_tecnico
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_solicitante_y_tecnico_cuando_son_distintos
+tests/test_parcial2_02_watchers.py::test_watchers_no_duplica_cuando_solicitante_y_tecnico_son_el_mismo
+tests/test_parcial2_02_watchers.py::test_watchers_devuelve_objetos_user_completos
+  /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:3623: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 5 passed, 9 warnings in 1.08s =========================

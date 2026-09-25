@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/kristacolonsalguero/Desktop/helpdesk-edu-parcial2
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collecting ... collected 13 items
+
+tests/test_parcial2_01_tags.py::test_ticket_nuevo_no_tiene_etiquetas PASSED [  7%]
+tests/test_parcial2_01_tags.py::test_tags_devuelve_una_tupla PASSED      [ 15%]
+tests/test_parcial2_01_tags.py::test_add_tag_normaliza_espacios_y_mayusculas PASSED [ 23%]
+tests/test_parcial2_01_tags.py::test_add_tag_no_duplica_etiquetas_equivalentes PASSED [ 30%]
+tests/test_parcial2_01_tags.py::test_add_tag_conserva_el_orden_de_insercion PASSED [ 38%]
+tests/test_parcial2_01_tags.py::test_add_tag_rechaza_valores_vacios[] PASSED [ 46%]
+tests/test_parcial2_01_tags.py::test_add_tag_rechaza_valores_vacios[   ] PASSED [ 53%]
+tests/test_parcial2_01_tags.py::test_add_tag_rechaza_valores_vacios[\t] PASSED [ 61%]
+tests/test_parcial2_01_tags.py::test_add_tag_rechaza_valores_vacios[\n] PASSED [ 69%]
+tests/test_parcial2_01_tags.py::test_validation_error_es_un_error_de_dominio PASSED [ 76%]
+tests/test_parcial2_01_tags.py::test_las_etiquetas_son_independientes_entre_tickets PASSED [ 84%]
+tests/test_parcial2_01_tags.py::test_no_se_puede_reasignar_la_propiedad_publica PASSED [ 92%]
+tests/test_parcial2_01_tags.py::test_mutar_la_tupla_devuelta_no_afecta_al_ticket PASSED [100%]
+
+============================== 13 passed in 0.77s ==============================

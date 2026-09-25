@@ -1,0 +1,7 @@
+* 0c901d9 feat(reporte): conteo de tickets por estado con agregacion SQL
+* d1fce8b feat(sql): consultas de integridad referencial y demostracion de cascada
+* 2c06129 feat(notifier): rechazo de asignacion duplicada y notificador inyectable
+* 81f774b test(watchers): agregar contenido de las pruebas de observadores
+* 4034278 feat(watchers): observadores del ticket sin duplicados via servicios
+* 50dc7f1 feat(tags): etiquetas encapsuladas en Ticket con validacion y normalizacion
+* 913f14a chore: proyecto base HelpDesk EDU para parcial 2
